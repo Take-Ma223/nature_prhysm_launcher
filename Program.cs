@@ -37,6 +37,8 @@ class MainForm : Form
     ComboBox soundOutputTypeComboBox = new ComboBox();
     ComboBox asioDriverComboBox = new ComboBox();
     CheckBox wasapiExclusiveCheckBox = new CheckBox();
+    Label asioDriverLabel = new Label();
+    Label bufferLabel = new Label();
     NumericUpDown bufferNumericUpDown = new NumericUpDown();
 
     TabPage tabPage2;
@@ -284,20 +286,21 @@ class MainForm : Form
 
         soundOutputTypeComboBox.Items.Add("DirectSound");
         soundOutputTypeComboBox.Items.Add("WASAPI");
-        soundOutputTypeComboBox.Items.Add("ASIO");
+        soundOutputTypeComboBox.Items.Add("ASIO(バッファサイズが反映されないことがあるため非推奨)");
         soundOutputTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-        soundOutputTypeComboBox.Location = new Point(200, 20);
+        soundOutputTypeComboBox.Location = new Point(100, 20);
+        soundOutputTypeComboBox.Size = new Size(300, 30);
+        soundOutputTypeComboBox.SelectedIndexChanged += new EventHandler(onTextChanged);
         soundPanel.Controls.Add(soundOutputTypeComboBox);
 
 
-        wasapiExclusiveCheckBox.Text = "排他モード(WASAPI選択時のみ有効)";
-        wasapiExclusiveCheckBox.Location = new Point(350, 20);
+        wasapiExclusiveCheckBox.Text = "排他モード(ONにすると音声遅延が少なくなります)";
+        wasapiExclusiveCheckBox.Location = new Point(10, 50);
         wasapiExclusiveCheckBox.AutoSize = true;
         soundPanel.Controls.Add(wasapiExclusiveCheckBox);
 
 
-        Label asioDriverLabel = new Label();
-        asioDriverLabel.Text = "ASIOドライバ(ASIO選択時のみ有効)";
+        asioDriverLabel.Text = "ASIOドライバ";
         asioDriverLabel.Location = new Point(10, 50);
         asioDriverLabel.AutoSize = true;
         soundPanel.Controls.Add(asioDriverLabel);
@@ -308,23 +311,57 @@ class MainForm : Form
         {
             asioDriverComboBox.Items.Add(item);
         }
-        asioDriverComboBox.Location = new Point(200, 50);
-        asioDriverComboBox.Size = new Size(200,30);
+        asioDriverComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        asioDriverComboBox.Location = new Point(100, 50);
+        asioDriverComboBox.Size = new Size(300,30);
         soundPanel.Controls.Add(asioDriverComboBox);
 
-        Label bufferLabel = new Label();
-        bufferLabel.Text = "バッファサイズ(ASIO選択時のみ有効、小さい程音声遅延が少なくなりますが、ノイズが増えます)";
+        bufferLabel.Text = "バッファサイズ(小さい程音声遅延が少なくなりますが、ノイズが増えます)";
         bufferLabel.Location = new Point(10, 80);
         bufferLabel.AutoSize = true;
         soundPanel.Controls.Add(bufferLabel);
 
         bufferNumericUpDown.Minimum = 1;
         bufferNumericUpDown.Maximum = 9999;
-        bufferNumericUpDown.Location = new Point(480, 80);
+        bufferNumericUpDown.Location = new Point(370, 80);
         bufferNumericUpDown.Size = new Size(70, 30);
         soundPanel.Controls.Add(bufferNumericUpDown);
 
     }
+
+    private void onTextChanged(object? sender, EventArgs e)
+    {
+        updateSoundUi();
+    }
+    private void updateSoundUi()
+    {
+        if (soundOutputTypeComboBox.SelectedIndex == 0)
+        {
+            soundPanel.Controls.Remove(wasapiExclusiveCheckBox);
+            soundPanel.Controls.Remove(asioDriverLabel);
+            soundPanel.Controls.Remove(asioDriverComboBox);
+            soundPanel.Controls.Remove(bufferLabel);
+            soundPanel.Controls.Remove(bufferNumericUpDown);
+        }
+        else if (soundOutputTypeComboBox.SelectedIndex == 1)
+        {
+            soundPanel.Controls.Add(wasapiExclusiveCheckBox);
+            soundPanel.Controls.Remove(asioDriverLabel);
+            soundPanel.Controls.Remove(asioDriverComboBox);
+            soundPanel.Controls.Remove(bufferLabel);
+            soundPanel.Controls.Remove(bufferNumericUpDown);
+        }
+        else if (soundOutputTypeComboBox.SelectedIndex == 2)
+        {
+            soundPanel.Controls.Remove(wasapiExclusiveCheckBox);
+            soundPanel.Controls.Add(asioDriverLabel);
+            soundPanel.Controls.Add(asioDriverComboBox);
+            soundPanel.Controls.Add(bufferLabel);
+            soundPanel.Controls.Add(bufferNumericUpDown);
+
+        }
+    }
+
 
     private void InitTabPage2()
     {

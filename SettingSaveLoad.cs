@@ -180,8 +180,8 @@ namespace nature_prhysm_launcher
         public bool vsync = false;
         public int fps = 400;
         public bool showFps = false;
-        public int soundOutputType = 0;
-        public bool wasapiExclusive = false;
+        public int soundOutputType = 1;
+        public bool wasapiExclusive = true;
         public int asioDriver = -1;
         public int buffer = 256;
         public bool vsyncOffsetCompensation = false;
