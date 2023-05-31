@@ -53,7 +53,8 @@ class MainForm : Form
     CheckBox showDebugCheckBox = new CheckBox();
     CheckBox localCheckBox = new CheckBox();
     CheckBox usePyCheckBox = new CheckBox();
-
+    Label comPortLabel = new Label();
+    NumericUpDown comPortNumericUpDown = new NumericUpDown();
 
 
 
@@ -93,6 +94,8 @@ class MainForm : Form
         showDebugCheckBox.Checked                   = setting.showDebug;
         localCheckBox.Checked                       = setting.local;
         usePyCheckBox.Checked                       = setting.usePy;
+        comPortNumericUpDown.Value                  = setting.comPort;
+
 
         int inRangeNumericUpDown(int value, NumericUpDown numericUpDown)
         {
@@ -129,6 +132,7 @@ class MainForm : Form
         setting.showDebug = showDebugCheckBox.Checked;
         setting.local = localCheckBox.Checked;
         setting.usePy = usePyCheckBox.Checked;
+        setting.comPort = (int)comPortNumericUpDown.Value;
 
         return setting;
     }
@@ -453,6 +457,19 @@ class MainForm : Form
         usePyCheckBox.Location = new Point(5, 100);
         usePyCheckBox.AutoSize = true;
         tabPage3.Controls.Add(usePyCheckBox);
+
+        Label comPortLabel = new Label();
+        comPortLabel.Text = "COM PORT(オリジナルコントローラ接続用)";
+        comPortLabel.Location = new Point(5, 130);
+        comPortLabel.AutoSize = true;
+        tabPage3.Controls.Add(comPortLabel);
+
+        comPortNumericUpDown.Minimum = 0;
+        comPortNumericUpDown.Maximum = 99999;
+        comPortNumericUpDown.Location = new Point(220, 130);
+        comPortNumericUpDown.Size = new Size(70, 30);
+        tabPage3.Controls.Add(comPortNumericUpDown);
+
     }
 
     private void InitTabControl()

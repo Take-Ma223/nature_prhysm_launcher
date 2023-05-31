@@ -33,6 +33,7 @@ namespace nature_prhysm_launcher
             { "SHOW_DEBUG",                 "SHOW_DEBUG" },
             { "LOCAL",                      "LOCAL" },
             { "USE_PY",                     "USE_PY" },
+            { "COM_PORT",                   "COM_PORT" },
         };
 
 
@@ -64,6 +65,7 @@ namespace nature_prhysm_launcher
                 string.Format("{0}:{1}",settingLabel["SHOW_DEBUG"],getWriteText(setting.showDebug)),
                 string.Format("{0}:{1}",settingLabel["LOCAL"],getWriteText(setting.local)),
                 string.Format("{0}:{1}",settingLabel["USE_PY"],getWriteText(setting.usePy)),
+                string.Format("{0}:{1}",settingLabel["COM_PORT"],setting.comPort),
 
             };
             try
@@ -148,6 +150,7 @@ namespace nature_prhysm_launcher
             if (v == settingLabel["SHOW_DEBUG"]) setting.showDebug = intToBool(value);
             if (v == settingLabel["LOCAL"]) setting.local = intToBool(value);
             if (v == settingLabel["USE_PY"]) setting.usePy = intToBool(value);
+            if (v == settingLabel["COM_PORT"]) setting.comPort = value;
         }
 
         private bool intToBool(int value)
@@ -178,7 +181,7 @@ namespace nature_prhysm_launcher
     public struct Setting
     {
         public bool vsync = false;
-        public int fps = 400;
+        public int fps = 450;
         public bool showFps = false;
         public int soundOutputType = 1;
         public bool wasapiExclusive = true;
@@ -193,6 +196,7 @@ namespace nature_prhysm_launcher
         public bool showDebug = true;
         public bool local = false;
         public bool usePy = false;
+        public int comPort = 0;
 
         public Setting()
         {
