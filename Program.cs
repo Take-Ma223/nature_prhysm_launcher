@@ -48,6 +48,7 @@ class MainForm : Form
     NumericUpDown songSelectRowNumberNumericUpDown = new NumericUpDown();
     NumericUpDown displayTimingOffsetNumericUpDown = new NumericUpDown();
     CheckBox fullScreenCheckBox = new CheckBox();
+    CheckBox editableCheckBox = new CheckBox();
 
     TabPage tabPage3;
     CheckBox showDebugCheckBox = new CheckBox();
@@ -91,11 +92,11 @@ class MainForm : Form
         songSelectRowNumberNumericUpDown.Value      = inRangeNumericUpDown(setting.songSelectRowNumber, songSelectRowNumberNumericUpDown);
         displayTimingOffsetNumericUpDown.Value      = inRangeNumericUpDown(setting.displayTimingOffset, displayTimingOffsetNumericUpDown);
         fullScreenCheckBox.Checked                  = setting.fullScreen;
+        editableCheckBox.Checked                      = setting.editable;
         showDebugCheckBox.Checked                   = setting.showDebug;
         localCheckBox.Checked                       = setting.local;
         usePyCheckBox.Checked                       = setting.usePy;
         comPortNumericUpDown.Value                  = setting.comPort;
-
 
         int inRangeNumericUpDown(int value, NumericUpDown numericUpDown)
         {
@@ -129,6 +130,7 @@ class MainForm : Form
         setting.songSelectRowNumber = (int)songSelectRowNumberNumericUpDown.Value;
         setting.displayTimingOffset = (int)displayTimingOffsetNumericUpDown.Value;
         setting.fullScreen = fullScreenCheckBox.Checked;
+        setting.editable = editableCheckBox.Checked;
         setting.showDebug = showDebugCheckBox.Checked;
         setting.local = localCheckBox.Checked;
         setting.usePy = usePyCheckBox.Checked;
@@ -424,9 +426,15 @@ class MainForm : Form
         tabPage2.Controls.Add(displayTimingOffsetNumericUpDown);
 
         fullScreenCheckBox.Text = "フルスクリーンで起動(正常に動作しない可能性があります)";
-        fullScreenCheckBox.Location = new Point(5, 220);
+        fullScreenCheckBox.Location = new Point(5, 210);
         fullScreenCheckBox.AutoSize = true;
         tabPage2.Controls.Add(fullScreenCheckBox);
+
+        editableCheckBox.Text = "譜面を編集可能にする";
+        editableCheckBox.Location = new Point(5, 240);
+        editableCheckBox.AutoSize = true;
+        tabPage2.Controls.Add(editableCheckBox);
+
     }
 
 
@@ -459,14 +467,14 @@ class MainForm : Form
         tabPage3.Controls.Add(usePyCheckBox);
 
         Label comPortLabel = new Label();
-        comPortLabel.Text = "COM PORT(オリジナルコントローラ接続用)";
+        comPortLabel.Text = "COM PORT(専用コントローラ接続用)";
         comPortLabel.Location = new Point(5, 130);
         comPortLabel.AutoSize = true;
         tabPage3.Controls.Add(comPortLabel);
 
         comPortNumericUpDown.Minimum = 0;
         comPortNumericUpDown.Maximum = 99999;
-        comPortNumericUpDown.Location = new Point(220, 130);
+        comPortNumericUpDown.Location = new Point(200, 130);
         comPortNumericUpDown.Size = new Size(70, 30);
         tabPage3.Controls.Add(comPortNumericUpDown);
 

@@ -34,6 +34,7 @@ namespace nature_prhysm_launcher
             { "LOCAL",                      "LOCAL" },
             { "USE_PY",                     "USE_PY" },
             { "COM_PORT",                   "COM_PORT" },
+            { "EDITABLE",                   "EDITABLE" },
         };
 
 
@@ -66,6 +67,7 @@ namespace nature_prhysm_launcher
                 string.Format("{0}:{1}",settingLabel["LOCAL"],getWriteText(setting.local)),
                 string.Format("{0}:{1}",settingLabel["USE_PY"],getWriteText(setting.usePy)),
                 string.Format("{0}:{1}",settingLabel["COM_PORT"],setting.comPort),
+                string.Format("{0}:{1}",settingLabel["EDITABLE"],getWriteText(setting.editable)),
 
             };
             try
@@ -151,6 +153,8 @@ namespace nature_prhysm_launcher
             if (v == settingLabel["LOCAL"]) setting.local = intToBool(value);
             if (v == settingLabel["USE_PY"]) setting.usePy = intToBool(value);
             if (v == settingLabel["COM_PORT"]) setting.comPort = value;
+            if (v == settingLabel["EDITABLE"]) setting.editable = intToBool(value);
+
         }
 
         private bool intToBool(int value)
@@ -197,6 +201,7 @@ namespace nature_prhysm_launcher
         public bool local = false;
         public bool usePy = false;
         public int comPort = 0;
+        public bool editable = false;
 
         public Setting()
         {
