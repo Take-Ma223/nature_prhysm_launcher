@@ -149,17 +149,17 @@ class MainForm : Form
         gameStartButton.Click += new EventHandler(onClickGameStart);
         this.Controls.Add(gameStartButton);
 
-        resetButton.Location = new Point(513, 320);
-        resetButton.AutoSize = true;
-        resetButton.Text = "デフォルト設定に戻す";
-        resetButton.Click += new EventHandler(onClickReset);
-        this.Controls.Add(resetButton);
-
-        transferSaveDataButton.Location = new Point(310, 320);
+        transferSaveDataButton.Location = new Point(290, 320);
         transferSaveDataButton.AutoSize = true;
         transferSaveDataButton.Text = "セーブデータの引継ぎ(ver1.30以降)";
         transferSaveDataButton.Click += new EventHandler(onClickTransferSaveData);
         this.Controls.Add(transferSaveDataButton);
+
+        resetButton.Location = new Point(502, 320);
+        resetButton.AutoSize = true;
+        resetButton.Text = "デフォルト設定に戻す";
+        resetButton.Click += new EventHandler(onClickReset);
+        this.Controls.Add(resetButton);
     }
 
     private void onClickGameStart(object? sender, EventArgs e)
@@ -275,7 +275,7 @@ class MainForm : Form
 
         fpsNumericUpDown.Minimum = 1;
         fpsNumericUpDown.Maximum = 999;
-        fpsNumericUpDown.Location = new Point(250, 50);
+        fpsNumericUpDown.Location = new Point(260, 50);
         fpsNumericUpDown.Size = new Size(70, 30);
         graphicPanel.Controls.Add(fpsNumericUpDown);
 
@@ -329,7 +329,7 @@ class MainForm : Form
 
         bufferNumericUpDown.Minimum = 1;
         bufferNumericUpDown.Maximum = 9999;
-        bufferNumericUpDown.Location = new Point(370, 80);
+        bufferNumericUpDown.Location = new Point(390, 80);
         bufferNumericUpDown.Size = new Size(70, 30);
         soundPanel.Controls.Add(bufferNumericUpDown);
 
@@ -403,7 +403,7 @@ class MainForm : Form
 
         songSelectRowNumberNumericUpDown.Minimum = 3;
         songSelectRowNumberNumericUpDown.Maximum = 15;
-        songSelectRowNumberNumericUpDown.Location = new Point(150, 100);
+        songSelectRowNumberNumericUpDown.Location = new Point(160, 100);
         songSelectRowNumberNumericUpDown.Size = new Size(70, 30);
         tabPage2.Controls.Add(songSelectRowNumberNumericUpDown);
 
@@ -421,7 +421,7 @@ class MainForm : Form
 
         displayTimingOffsetNumericUpDown.Minimum = 0;
         displayTimingOffsetNumericUpDown.Maximum = 1000;
-        displayTimingOffsetNumericUpDown.Location = new Point(180, 130);
+        displayTimingOffsetNumericUpDown.Location = new Point(200, 130);
         displayTimingOffsetNumericUpDown.Size = new Size(70, 30);
         tabPage2.Controls.Add(displayTimingOffsetNumericUpDown);
 
@@ -444,7 +444,7 @@ class MainForm : Form
         tabPage3.Name = "tab2";
         tabPage3.Text = "開発者用設定";
         tabControl.TabPages.Add(tabPage3);
-;
+        ;
         Label note = new Label();
         note.Text = "開発者用の設定です。変更する必要はありません。";
         note.Location = new Point(5, 10);
@@ -452,7 +452,7 @@ class MainForm : Form
         tabPage3.Controls.Add(note);
 
         showDebugCheckBox.Text = "デバッグモードの表示";
-        showDebugCheckBox.Location = new Point(5,40);
+        showDebugCheckBox.Location = new Point(5, 40);
         showDebugCheckBox.AutoSize = true;
         tabPage3.Controls.Add(showDebugCheckBox);
 
@@ -460,7 +460,7 @@ class MainForm : Form
         localCheckBox.Location = new Point(5, 70);
         localCheckBox.AutoSize = true;
         tabPage3.Controls.Add(localCheckBox);
-        
+
         usePyCheckBox.Text = "pythonスクリプトの使用";
         usePyCheckBox.Location = new Point(5, 100);
         usePyCheckBox.AutoSize = true;
@@ -474,10 +474,18 @@ class MainForm : Form
 
         comPortNumericUpDown.Minimum = 0;
         comPortNumericUpDown.Maximum = 99999;
-        comPortNumericUpDown.Location = new Point(200, 130);
+        comPortNumericUpDown.Location = new Point(220, 130);
+        comPortNumericUpDown.AutoSize = true;
         comPortNumericUpDown.Size = new Size(70, 30);
         tabPage3.Controls.Add(comPortNumericUpDown);
 
+    }
+
+
+    private Font GetNewSizeFont(Font font, int currentSize)
+    {
+        return new Font(font.Name, currentSize,
+                font.Style, font.Unit);
     }
 
     private void InitTabControl()
@@ -486,15 +494,18 @@ class MainForm : Form
         tabControl.Location = new Point(10, 10);
         tabControl.Size = new Size(620, 300);
         this.Controls.Add(tabControl);
+        this.AutoScaleMode = AutoScaleMode.None;
     }
 
     private void InitForm()
     {
+        this.Font = GetNewSizeFont(this.Font, 10);
         this.Text = "nature prhysm launcher";
         this.MaximizeBox = false;
         this.ClientSize = new Size(640,360);
         this.StartPosition = FormStartPosition.CenterScreen;
         this.FormBorderStyle = FormBorderStyle.FixedSingle;
         this.Icon = Resources.icon;
+        this.AutoScaleMode = AutoScaleMode.None;
     }
 }
