@@ -30,6 +30,7 @@ namespace nature_prhysm_launcher
             { "SONG_SELECT_ROW_NUMBER",     "SONG_SELECT_ROW_NUMBER" },
             { "DISPLAY_TIMING_OFFSET",      "DISPLAY_TIMING_OFFSET" },
             { "FULLSCREEN",                 "FULLSCREEN" },
+            { "USE_AI_PREDICTED_DIFFICULTY","USE_AI_PREDICTED_DIFFICULTY" },
             { "SHOW_DEBUG",                 "SHOW_DEBUG" },
             { "LOCAL",                      "LOCAL" },
             { "USE_PY",                     "USE_PY" },
@@ -58,16 +59,16 @@ namespace nature_prhysm_launcher
                                        
                 string.Format("{0}:{1}",settingLabel["SHOW_STR_SHADOW"],getWriteText(setting.showStrShadow)),
                 string.Format("{0}:{1}",settingLabel["USE_HIPERFORMANCE_TIMER"],getWriteText(setting.useHiperformanceTimer)),
-                string.Format("{0}:{1}",settingLabel["SONG_SELECT_ROW_NUMBER"],setting.songSelectRowNumber),
-                                      
-                string.Format("{0}:{1}",settingLabel["DISPLAY_TIMING_OFFSET"],setting.displayTimingOffset),
-                                     
+                string.Format("{0}:{1}",settingLabel["SONG_SELECT_ROW_NUMBER"],setting.songSelectRowNumber),                        
+                string.Format("{0}:{1}",settingLabel["DISPLAY_TIMING_OFFSET"],setting.displayTimingOffset),                   
                 string.Format("{0}:{1}",settingLabel["FULLSCREEN"],getWriteText(setting.fullScreen)),
+                string.Format("{0}:{1}",settingLabel["EDITABLE"],getWriteText(setting.editable)),
+                string.Format("{0}:{1}",settingLabel["USE_AI_PREDICTED_DIFFICULTY"],getWriteText(setting.useAiPredictedDifficulty)),
+
                 string.Format("{0}:{1}",settingLabel["SHOW_DEBUG"],getWriteText(setting.showDebug)),
                 string.Format("{0}:{1}",settingLabel["LOCAL"],getWriteText(setting.local)),
                 string.Format("{0}:{1}",settingLabel["USE_PY"],getWriteText(setting.usePy)),
                 string.Format("{0}:{1}",settingLabel["COM_PORT"],setting.comPort),
-                string.Format("{0}:{1}",settingLabel["EDITABLE"],getWriteText(setting.editable)),
 
             };
             try
@@ -149,11 +150,13 @@ namespace nature_prhysm_launcher
             if (v == settingLabel["SONG_SELECT_ROW_NUMBER"]) setting.songSelectRowNumber = value;
             if (v == settingLabel["DISPLAY_TIMING_OFFSET"]) setting.displayTimingOffset = value;
             if (v == settingLabel["FULLSCREEN"]) setting.fullScreen = intToBool(value);
+            if (v == settingLabel["EDITABLE"]) setting.editable = intToBool(value);
+            if (v == settingLabel["USE_AI_PREDICTED_DIFFICULTY"]) setting.useAiPredictedDifficulty = intToBool(value);
+
             if (v == settingLabel["SHOW_DEBUG"]) setting.showDebug = intToBool(value);
             if (v == settingLabel["LOCAL"]) setting.local = intToBool(value);
             if (v == settingLabel["USE_PY"]) setting.usePy = intToBool(value);
             if (v == settingLabel["COM_PORT"]) setting.comPort = value;
-            if (v == settingLabel["EDITABLE"]) setting.editable = intToBool(value);
 
         }
 
@@ -197,11 +200,13 @@ namespace nature_prhysm_launcher
         public int songSelectRowNumber = 15;
         public int displayTimingOffset = 0;
         public bool fullScreen = false;
+        public bool editable = false;
+        public bool useAiPredictedDifficulty = false;
         public bool showDebug = true;
         public bool local = false;
         public bool usePy = false;
         public int comPort = 0;
-        public bool editable = false;
+
 
         public Setting()
         {

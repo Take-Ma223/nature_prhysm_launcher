@@ -28,7 +28,7 @@ class MainForm : Form
     Button resetButton = new Button();
     Button transferSaveDataButton = new Button();
 
-    TabPage tabPage1;
+    TabPage basicSettingPage;
     GroupBox graphicPanel = new GroupBox();
     GroupBox soundPanel = new GroupBox();
     CheckBox vsyncCheckBox = new CheckBox();
@@ -39,9 +39,10 @@ class MainForm : Form
     CheckBox wasapiExclusiveCheckBox = new CheckBox();
     Label asioDriverLabel = new Label();
     Label bufferLabel = new Label();
+    Label bufferLabel2 = new Label();
     NumericUpDown bufferNumericUpDown = new NumericUpDown();
 
-    TabPage tabPage2;
+    TabPage otherSettingPage;
     CheckBox vsyncOffsetCompensationCheckBox = new CheckBox();
     CheckBox showStrShadowCheckBox = new CheckBox();
     CheckBox useHiperformanceTimerCheckBox = new CheckBox();
@@ -49,8 +50,9 @@ class MainForm : Form
     NumericUpDown displayTimingOffsetNumericUpDown = new NumericUpDown();
     CheckBox fullScreenCheckBox = new CheckBox();
     CheckBox editableCheckBox = new CheckBox();
+    CheckBox useAiPredictedDifficultyCheckBox = new CheckBox();
 
-    TabPage tabPage3;
+    TabPage developerSettingPage;
     CheckBox showDebugCheckBox = new CheckBox();
     CheckBox localCheckBox = new CheckBox();
     CheckBox usePyCheckBox = new CheckBox();
@@ -92,7 +94,8 @@ class MainForm : Form
         songSelectRowNumberNumericUpDown.Value      = inRangeNumericUpDown(setting.songSelectRowNumber, songSelectRowNumberNumericUpDown);
         displayTimingOffsetNumericUpDown.Value      = inRangeNumericUpDown(setting.displayTimingOffset, displayTimingOffsetNumericUpDown);
         fullScreenCheckBox.Checked                  = setting.fullScreen;
-        editableCheckBox.Checked                      = setting.editable;
+        editableCheckBox.Checked                    = setting.editable;
+        useAiPredictedDifficultyCheckBox.Checked    = setting.useAiPredictedDifficulty;
         showDebugCheckBox.Checked                   = setting.showDebug;
         localCheckBox.Checked                       = setting.local;
         usePyCheckBox.Checked                       = setting.usePy;
@@ -131,6 +134,7 @@ class MainForm : Form
         setting.displayTimingOffset = (int)displayTimingOffsetNumericUpDown.Value;
         setting.fullScreen = fullScreenCheckBox.Checked;
         setting.editable = editableCheckBox.Checked;
+        setting.useAiPredictedDifficulty = useAiPredictedDifficultyCheckBox.Checked;
         setting.showDebug = showDebugCheckBox.Checked;
         setting.local = localCheckBox.Checked;
         setting.usePy = usePyCheckBox.Checked;
@@ -143,19 +147,19 @@ class MainForm : Form
 
     private void InitButton()
     {
-        gameStartButton.Location = new Point(10, 320);
+        gameStartButton.Location = new Point(10, 360);
         gameStartButton.AutoSize = true;
         gameStartButton.Text = "ゲームスタート";
         gameStartButton.Click += new EventHandler(onClickGameStart);
         this.Controls.Add(gameStartButton);
 
-        transferSaveDataButton.Location = new Point(290, 320);
+        transferSaveDataButton.Location = new Point(290, 360);
         transferSaveDataButton.AutoSize = true;
         transferSaveDataButton.Text = "セーブデータの引継ぎ(ver1.30以降)";
         transferSaveDataButton.Click += new EventHandler(onClickTransferSaveData);
         this.Controls.Add(transferSaveDataButton);
 
-        resetButton.Location = new Point(502, 320);
+        resetButton.Location = new Point(502, 360);
         resetButton.AutoSize = true;
         resetButton.Text = "デフォルト設定に戻す";
         resetButton.Click += new EventHandler(onClickReset);
@@ -239,21 +243,21 @@ class MainForm : Form
 
     private void InitTabPage1()
     {
-        tabPage1 = new TabPage();
-        tabPage1.Name = "tab1";
-        tabPage1.Text = "基本設定";
-        tabControl.TabPages.Add(tabPage1);
+        basicSettingPage = new TabPage();
+        basicSettingPage.Name = "tab1";
+        basicSettingPage.Text = "基本設定";
+        tabControl.TabPages.Add(basicSettingPage);
 
         graphicPanel.Text = "グラフィック";
         graphicPanel.Location = new Point(10, 0);
         graphicPanel.Size = new Size(590,145);
-        tabPage1.Controls.Add(graphicPanel);
+        basicSettingPage.Controls.Add(graphicPanel);
 
         soundPanel.Text = "サウンド";
 //        soundPanel.BorderStyle = BorderStyle.FixedSingle;
         soundPanel.Location = new Point(10, 150);
-        soundPanel.Size = new Size(590, 110);
-        tabPage1.Controls.Add(soundPanel);
+        soundPanel.Size = new Size(590, 150);
+        basicSettingPage.Controls.Add(soundPanel);
 
         vsyncCheckBox.Text = "垂直同期をONにする(OFFを推奨しますが、音符がカクつく場合はONにしてください。)";
         vsyncCheckBox.Location = new Point(10, 20);
@@ -291,11 +295,11 @@ class MainForm : Form
         soundPanel.Controls.Add(soundOutputTypeLabel);
 
         soundOutputTypeComboBox.Items.Add("DirectSound");
-        soundOutputTypeComboBox.Items.Add("WASAPI");
+        soundOutputTypeComboBox.Items.Add("WASAPI(推奨)");
         soundOutputTypeComboBox.Items.Add("ASIO(バッファサイズが反映されないことがあるため非推奨)");
         soundOutputTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         soundOutputTypeComboBox.Location = new Point(100, 20);
-        soundOutputTypeComboBox.Size = new Size(300, 30);
+        soundOutputTypeComboBox.Size = new Size(350, 30);
         soundOutputTypeComboBox.SelectedIndexChanged += new EventHandler(onTextChanged);
         soundPanel.Controls.Add(soundOutputTypeComboBox);
 
@@ -319,19 +323,24 @@ class MainForm : Form
         }
         asioDriverComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         asioDriverComboBox.Location = new Point(100, 50);
-        asioDriverComboBox.Size = new Size(300,30);
+        asioDriverComboBox.Size = new Size(350,30);
         soundPanel.Controls.Add(asioDriverComboBox);
 
-        bufferLabel.Text = "バッファサイズ(小さい程音声遅延が少なくなりますが、ノイズが増えます)";
+        bufferLabel.Text = "バッファサイズ";
         bufferLabel.Location = new Point(10, 80);
         bufferLabel.AutoSize = true;
         soundPanel.Controls.Add(bufferLabel);
 
         bufferNumericUpDown.Minimum = 1;
         bufferNumericUpDown.Maximum = 9999;
-        bufferNumericUpDown.Location = new Point(390, 80);
+        bufferNumericUpDown.Location = new Point(100, 80);
         bufferNumericUpDown.Size = new Size(70, 30);
         soundPanel.Controls.Add(bufferNumericUpDown);
+
+        bufferLabel2.Text = "小さい程音声遅延が少なくなりますが、ノイズが増えます";
+        bufferLabel2.Location = new Point(10, 110);
+        bufferLabel2.AutoSize = true;
+        soundPanel.Controls.Add(bufferLabel2);
 
     }
 
@@ -347,6 +356,7 @@ class MainForm : Form
             soundPanel.Controls.Remove(asioDriverLabel);
             soundPanel.Controls.Remove(asioDriverComboBox);
             soundPanel.Controls.Remove(bufferLabel);
+            soundPanel.Controls.Remove(bufferLabel2);
             soundPanel.Controls.Remove(bufferNumericUpDown);
         }
         else if (soundOutputTypeComboBox.SelectedIndex == 1)
@@ -355,6 +365,7 @@ class MainForm : Form
             soundPanel.Controls.Remove(asioDriverLabel);
             soundPanel.Controls.Remove(asioDriverComboBox);
             soundPanel.Controls.Remove(bufferLabel);
+            soundPanel.Controls.Remove(bufferLabel2);
             soundPanel.Controls.Remove(bufferNumericUpDown);
         }
         else if (soundOutputTypeComboBox.SelectedIndex == 2)
@@ -363,6 +374,7 @@ class MainForm : Form
             soundPanel.Controls.Add(asioDriverLabel);
             soundPanel.Controls.Add(asioDriverComboBox);
             soundPanel.Controls.Add(bufferLabel);
+            soundPanel.Controls.Add(bufferLabel2);
             soundPanel.Controls.Add(bufferNumericUpDown);
 
         }
@@ -371,113 +383,119 @@ class MainForm : Form
 
     private void InitTabPage2()
     {
-        tabPage2 = new TabPage();
-        tabPage2.Name = "tab2";
-        tabPage2.Text = "その他設定(変更非推奨)";
-        tabControl.TabPages.Add(tabPage2);
+        otherSettingPage = new TabPage();
+        otherSettingPage.Name = "tab2";
+        otherSettingPage.Text = "その他設定(変更非推奨)";
+        tabControl.TabPages.Add(otherSettingPage);
 
 
         vsyncOffsetCompensationCheckBox.Text = "音符の判定タイミングを1フレーム遅らせる(垂直同期ONの時のみ有効)";
         vsyncOffsetCompensationCheckBox.Location = new Point(5, 10);
         vsyncOffsetCompensationCheckBox.AutoSize = true;
-        tabPage2.Controls.Add(vsyncOffsetCompensationCheckBox);
+        otherSettingPage.Controls.Add(vsyncOffsetCompensationCheckBox);
 
 
         showStrShadowCheckBox.Text = "文字の影を表示する(表示しない場合、処理が軽くなる可能性があります)";
         showStrShadowCheckBox.Location = new Point(5, 40);
         showStrShadowCheckBox.AutoSize = true;
-        tabPage2.Controls.Add(showStrShadowCheckBox);
+        otherSettingPage.Controls.Add(showStrShadowCheckBox);
 
 
         useHiperformanceTimerCheckBox.Text = "高精度タイマーを使用する";
         useHiperformanceTimerCheckBox.Location = new Point(5, 70);
         useHiperformanceTimerCheckBox.AutoSize = true;
-        tabPage2.Controls.Add(useHiperformanceTimerCheckBox);
+        otherSettingPage.Controls.Add(useHiperformanceTimerCheckBox);
 
 
         Label songSelectRowNumberLabel = new Label();
         songSelectRowNumberLabel.Text = "選曲画面で表示する曲数";
         songSelectRowNumberLabel.Location = new Point(5, 100);
         songSelectRowNumberLabel.AutoSize = true;
-        tabPage2.Controls.Add(songSelectRowNumberLabel);
+        otherSettingPage.Controls.Add(songSelectRowNumberLabel);
 
         songSelectRowNumberNumericUpDown.Minimum = 3;
         songSelectRowNumberNumericUpDown.Maximum = 15;
         songSelectRowNumberNumericUpDown.Location = new Point(160, 100);
         songSelectRowNumberNumericUpDown.Size = new Size(70, 30);
-        tabPage2.Controls.Add(songSelectRowNumberNumericUpDown);
+        otherSettingPage.Controls.Add(songSelectRowNumberNumericUpDown);
 
         Label displayTimingOffsetLabel1 = new Label();
         displayTimingOffsetLabel1.Text = "譜面表示タイミングオフセット(ms)";
         displayTimingOffsetLabel1.Location = new Point(5, 130);
         displayTimingOffsetLabel1.AutoSize = true;
-        tabPage2.Controls.Add(displayTimingOffsetLabel1);
+        otherSettingPage.Controls.Add(displayTimingOffsetLabel1);
 
         Label displayTimingOffsetLabel2 = new Label();
         displayTimingOffsetLabel2.Text = "例えば30ミリ秒の遅れが発生するディスプレイなら30と変更してください。\nあまりにも大きい値の場合ロングノートの挙動がおかしくなります。";
         displayTimingOffsetLabel2.Location = new Point(5, 160);
         displayTimingOffsetLabel2.AutoSize = true;
-        tabPage2.Controls.Add(displayTimingOffsetLabel2);
+        otherSettingPage.Controls.Add(displayTimingOffsetLabel2);
 
         displayTimingOffsetNumericUpDown.Minimum = 0;
         displayTimingOffsetNumericUpDown.Maximum = 1000;
         displayTimingOffsetNumericUpDown.Location = new Point(200, 130);
         displayTimingOffsetNumericUpDown.Size = new Size(70, 30);
-        tabPage2.Controls.Add(displayTimingOffsetNumericUpDown);
+        otherSettingPage.Controls.Add(displayTimingOffsetNumericUpDown);
 
         fullScreenCheckBox.Text = "フルスクリーンで起動(正常に動作しない可能性があります)";
         fullScreenCheckBox.Location = new Point(5, 210);
         fullScreenCheckBox.AutoSize = true;
-        tabPage2.Controls.Add(fullScreenCheckBox);
+        otherSettingPage.Controls.Add(fullScreenCheckBox);
 
         editableCheckBox.Text = "譜面を編集可能にする";
         editableCheckBox.Location = new Point(5, 240);
         editableCheckBox.AutoSize = true;
-        tabPage2.Controls.Add(editableCheckBox);
+        otherSettingPage.Controls.Add(editableCheckBox);
+
+        useAiPredictedDifficultyCheckBox.Text = "選曲画面でAI予測難易度を使用する";
+        useAiPredictedDifficultyCheckBox.Location = new Point(5, 270);
+        useAiPredictedDifficultyCheckBox.AutoSize = true;
+        otherSettingPage.Controls.Add(useAiPredictedDifficultyCheckBox);
+
 
     }
 
 
     private void InitTabPage3()
     {
-        tabPage3 = new TabPage();
-        tabPage3.Name = "tab2";
-        tabPage3.Text = "開発者用設定";
-        tabControl.TabPages.Add(tabPage3);
+        developerSettingPage = new TabPage();
+        developerSettingPage.Name = "tab3";
+        developerSettingPage.Text = "開発者用設定";
+        tabControl.TabPages.Add(developerSettingPage);
         ;
         Label note = new Label();
         note.Text = "開発者用の設定です。変更する必要はありません。";
         note.Location = new Point(5, 10);
         note.AutoSize = true;
-        tabPage3.Controls.Add(note);
+        developerSettingPage.Controls.Add(note);
 
         showDebugCheckBox.Text = "デバッグモードの表示";
         showDebugCheckBox.Location = new Point(5, 40);
         showDebugCheckBox.AutoSize = true;
-        tabPage3.Controls.Add(showDebugCheckBox);
+        developerSettingPage.Controls.Add(showDebugCheckBox);
 
         localCheckBox.Text = "サーバー接続先をローカルにする";
         localCheckBox.Location = new Point(5, 70);
         localCheckBox.AutoSize = true;
-        tabPage3.Controls.Add(localCheckBox);
+        developerSettingPage.Controls.Add(localCheckBox);
 
         usePyCheckBox.Text = "pythonスクリプトの使用";
         usePyCheckBox.Location = new Point(5, 100);
         usePyCheckBox.AutoSize = true;
-        tabPage3.Controls.Add(usePyCheckBox);
+        developerSettingPage.Controls.Add(usePyCheckBox);
 
         Label comPortLabel = new Label();
         comPortLabel.Text = "COM PORT(専用コントローラ接続用)";
         comPortLabel.Location = new Point(5, 130);
         comPortLabel.AutoSize = true;
-        tabPage3.Controls.Add(comPortLabel);
+        developerSettingPage.Controls.Add(comPortLabel);
 
         comPortNumericUpDown.Minimum = 0;
         comPortNumericUpDown.Maximum = 99999;
         comPortNumericUpDown.Location = new Point(220, 130);
         comPortNumericUpDown.AutoSize = true;
         comPortNumericUpDown.Size = new Size(70, 30);
-        tabPage3.Controls.Add(comPortNumericUpDown);
+        developerSettingPage.Controls.Add(comPortNumericUpDown);
 
     }
 
@@ -492,7 +510,7 @@ class MainForm : Form
     {
         tabControl = new TabControl();
         tabControl.Location = new Point(10, 10);
-        tabControl.Size = new Size(620, 300);
+        tabControl.Size = new Size(620, 340);
         this.Controls.Add(tabControl);
         this.AutoScaleMode = AutoScaleMode.None;
     }
@@ -502,7 +520,7 @@ class MainForm : Form
         this.Font = GetNewSizeFont(this.Font, 10);
         this.Text = "nature prhysm launcher";
         this.MaximizeBox = false;
-        this.ClientSize = new Size(640,360);
+        this.ClientSize = new Size(640,400);
         this.StartPosition = FormStartPosition.CenterScreen;
         this.FormBorderStyle = FormBorderStyle.FixedSingle;
         this.Icon = Resources.icon;
