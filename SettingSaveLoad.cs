@@ -24,6 +24,17 @@ namespace nature_prhysm_launcher
             { "WASAPI_EXCLUSIVE",           "WASAPI_EXCLUSIVE" },
             { "ASIO_DRIVER",                "ASIO_DRIVER" },
             { "BUFFER",                     "BUFFER" },
+
+            { "NOTE_TEXT_R","NOTE_TEXT_R"},
+            { "NOTE_TEXT_G","NOTE_TEXT_G"},
+            { "NOTE_TEXT_B","NOTE_TEXT_B"},
+            { "NOTE_TEXT_C","NOTE_TEXT_C"},
+            { "NOTE_TEXT_M","NOTE_TEXT_M"},
+            { "NOTE_TEXT_Y","NOTE_TEXT_Y"},
+            { "NOTE_TEXT_W","NOTE_TEXT_W"},
+            { "NOTE_TEXT_K","NOTE_TEXT_K"},
+            { "NOTE_TEXT_F","NOTE_TEXT_F"},
+
             { "VSYNC_OFFSET_COMPENSATION",  "VSYNC_OFFSET_COMPENSATION" },
             { "SHOW_STR_SHADOW",            "SHOW_STR_SHADOW" },
             { "USE_HIPERFORMANCE_TIMER",    "USE_HIPERFORMANCE_TIMER" },
@@ -31,6 +42,7 @@ namespace nature_prhysm_launcher
             { "DISPLAY_TIMING_OFFSET",      "DISPLAY_TIMING_OFFSET" },
             { "FULLSCREEN",                 "FULLSCREEN" },
             { "USE_AI_PREDICTED_DIFFICULTY","USE_AI_PREDICTED_DIFFICULTY" },
+
             { "SHOW_DEBUG",                 "SHOW_DEBUG" },
             { "LOCAL",                      "LOCAL" },
             { "USE_PY",                     "USE_PY" },
@@ -56,7 +68,17 @@ namespace nature_prhysm_launcher
                 string.Format("{0}:{1}",settingLabel["ASIO_DRIVER"],setting.asioDriver),
                 string.Format("{0}:{1}",settingLabel["BUFFER"],setting.buffer),
                 string.Format("{0}:{1}",settingLabel["VSYNC_OFFSET_COMPENSATION"],getWriteText(setting.vsyncOffsetCompensation)),
-                                       
+
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_R"],getWriteText(setting.noteText[0])),
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_G"],getWriteText(setting.noteText[1])),
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_B"],getWriteText(setting.noteText[2])),
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_C"],getWriteText(setting.noteText[3])),
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_M"],getWriteText(setting.noteText[4])),
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_Y"],getWriteText(setting.noteText[5])),
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_W"],getWriteText(setting.noteText[6])),
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_K"],getWriteText(setting.noteText[7])),
+                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_F"],getWriteText(setting.noteText[8])),
+
                 string.Format("{0}:{1}",settingLabel["SHOW_STR_SHADOW"],getWriteText(setting.showStrShadow)),
                 string.Format("{0}:{1}",settingLabel["USE_HIPERFORMANCE_TIMER"],getWriteText(setting.useHiperformanceTimer)),
                 string.Format("{0}:{1}",settingLabel["SONG_SELECT_ROW_NUMBER"],setting.songSelectRowNumber),                        
@@ -144,6 +166,17 @@ namespace nature_prhysm_launcher
             if (v == settingLabel["WASAPI_EXCLUSIVE"]) setting.wasapiExclusive = intToBool(value);
             if (v == settingLabel["ASIO_DRIVER"]) setting.asioDriver = value;
             if (v == settingLabel["BUFFER"]) setting.buffer = value;
+
+            if (v == settingLabel["NOTE_TEXT_R"]) setting.noteText[0] = intToBool(value);
+            if (v == settingLabel["NOTE_TEXT_G"]) setting.noteText[1] = intToBool(value);
+            if (v == settingLabel["NOTE_TEXT_B"]) setting.noteText[2] = intToBool(value);
+            if (v == settingLabel["NOTE_TEXT_C"]) setting.noteText[3] = intToBool(value);
+            if (v == settingLabel["NOTE_TEXT_M"]) setting.noteText[4] = intToBool(value);
+            if (v == settingLabel["NOTE_TEXT_Y"]) setting.noteText[5] = intToBool(value);
+            if (v == settingLabel["NOTE_TEXT_W"]) setting.noteText[6] = intToBool(value);
+            if (v == settingLabel["NOTE_TEXT_K"]) setting.noteText[7] = intToBool(value);
+            if (v == settingLabel["NOTE_TEXT_F"]) setting.noteText[8] = intToBool(value);
+
             if (v == settingLabel["VSYNC_OFFSET_COMPENSATION"]) setting.vsyncOffsetCompensation = intToBool(value);
             if (v == settingLabel["SHOW_STR_SHADOW"]) setting.showStrShadow = intToBool(value);
             if (v == settingLabel["USE_HIPERFORMANCE_TIMER"]) setting.useHiperformanceTimer = intToBool(value);
@@ -194,6 +227,9 @@ namespace nature_prhysm_launcher
         public bool wasapiExclusive = true;
         public int asioDriver = -1;
         public int buffer = 256;
+
+        public bool[] noteText = { false, false, false, false, false, false, false, false, false };
+
         public bool vsyncOffsetCompensation = false;
         public bool showStrShadow = true;
         public bool useHiperformanceTimer = true;
@@ -202,6 +238,7 @@ namespace nature_prhysm_launcher
         public bool fullScreen = false;
         public bool editable = false;
         public bool useAiPredictedDifficulty = false;
+
         public bool showDebug = true;
         public bool local = false;
         public bool usePy = false;

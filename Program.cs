@@ -52,6 +52,9 @@ class MainForm : Form
     CheckBox editableCheckBox = new CheckBox();
     CheckBox useAiPredictedDifficultyCheckBox = new CheckBox();
 
+    NoteTextSettingPage noteTextSettingPage;
+
+
     TabPage developerSettingPage;
     CheckBox showDebugCheckBox = new CheckBox();
     CheckBox localCheckBox = new CheckBox();
@@ -66,9 +69,10 @@ class MainForm : Form
     {
         InitForm();
         InitTabControl();
-        InitTabPage1();
-        InitTabPage2();
-        InitTabPage3();
+        InitTabPageBasicSetting();
+        InitTabPageNoteTextSetting();
+        InitTabPageOtherSetting();
+        InitTabPageDeveloperSetting();
         InitButton();
         loadSetting();
     }
@@ -88,6 +92,12 @@ class MainForm : Form
         wasapiExclusiveCheckBox.Checked             = setting.wasapiExclusive;
         asioDriverComboBox.SelectedIndex            = inRangeComboBox(setting.asioDriver, asioDriverComboBox);
         bufferNumericUpDown.Value                   = inRangeNumericUpDown(setting.buffer, bufferNumericUpDown);
+
+        for(int i = 0; i < setting.noteText.Length; i++)
+        {
+            noteTextSettingPage.colorNameCheckBox[i].Checked = setting.noteText[i];
+        }
+
         vsyncOffsetCompensationCheckBox.Checked     = setting.vsyncOffsetCompensation;
         showStrShadowCheckBox.Checked               = setting.showStrShadow;
         useHiperformanceTimerCheckBox.Checked       = setting.useHiperformanceTimer;
@@ -95,6 +105,7 @@ class MainForm : Form
         displayTimingOffsetNumericUpDown.Value      = inRangeNumericUpDown(setting.displayTimingOffset, displayTimingOffsetNumericUpDown);
         fullScreenCheckBox.Checked                  = setting.fullScreen;
         editableCheckBox.Checked                    = setting.editable;
+        
         useAiPredictedDifficultyCheckBox.Checked    = setting.useAiPredictedDifficulty;
         showDebugCheckBox.Checked                   = setting.showDebug;
         localCheckBox.Checked                       = setting.local;
@@ -127,6 +138,12 @@ class MainForm : Form
         setting.wasapiExclusive = wasapiExclusiveCheckBox.Checked;
         setting.asioDriver = asioDriverComboBox.SelectedIndex;
         setting.buffer = (int)bufferNumericUpDown.Value;
+
+        for (int i = 0; i < setting.noteText.Length; i++)
+        {
+            setting.noteText[i] = noteTextSettingPage.colorNameCheckBox[i].Checked;
+        }
+
         setting.vsyncOffsetCompensation = vsyncOffsetCompensationCheckBox.Checked;
         setting.showStrShadow = showStrShadowCheckBox.Checked;
         setting.useHiperformanceTimer = useHiperformanceTimerCheckBox.Checked;
@@ -135,6 +152,7 @@ class MainForm : Form
         setting.fullScreen = fullScreenCheckBox.Checked;
         setting.editable = editableCheckBox.Checked;
         setting.useAiPredictedDifficulty = useAiPredictedDifficultyCheckBox.Checked;
+       
         setting.showDebug = showDebugCheckBox.Checked;
         setting.local = localCheckBox.Checked;
         setting.usePy = usePyCheckBox.Checked;
@@ -241,7 +259,7 @@ class MainForm : Form
     }
 
 
-    private void InitTabPage1()
+    private void InitTabPageBasicSetting()
     {
         basicSettingPage = new TabPage();
         basicSettingPage.Name = "tab1";
@@ -381,10 +399,18 @@ class MainForm : Form
     }
 
 
-    private void InitTabPage2()
+    private void InitTabPageNoteTextSetting()
+    {
+        noteTextSettingPage = new NoteTextSettingPage();
+        tabControl.TabPages.Add(noteTextSettingPage);
+
+    }
+
+
+    private void InitTabPageOtherSetting()
     {
         otherSettingPage = new TabPage();
-        otherSettingPage.Name = "tab2";
+        otherSettingPage.Name = "tab3";
         otherSettingPage.Text = "その他設定(変更非推奨)";
         tabControl.TabPages.Add(otherSettingPage);
 
@@ -456,13 +482,13 @@ class MainForm : Form
     }
 
 
-    private void InitTabPage3()
+    private void InitTabPageDeveloperSetting()
     {
         developerSettingPage = new TabPage();
-        developerSettingPage.Name = "tab3";
+        developerSettingPage.Name = "tab4";
         developerSettingPage.Text = "開発者用設定";
         tabControl.TabPages.Add(developerSettingPage);
-        ;
+        
         Label note = new Label();
         note.Text = "開発者用の設定です。変更する必要はありません。";
         note.Location = new Point(5, 10);
