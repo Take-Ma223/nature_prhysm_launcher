@@ -495,7 +495,7 @@ class MainForm : Form
         note.AutoSize = true;
         developerSettingPage.Controls.Add(note);
 
-        showDebugCheckBox.Text = "デバッグモードの表示";
+        showDebugCheckBox.Text = "オートプレイの表示";
         showDebugCheckBox.Location = new Point(5, 40);
         showDebugCheckBox.AutoSize = true;
         developerSettingPage.Controls.Add(showDebugCheckBox);
