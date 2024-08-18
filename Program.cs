@@ -52,7 +52,7 @@ class MainForm : Form
     CheckBox editableCheckBox = new CheckBox();
     CheckBox useAiPredictedDifficultyCheckBox = new CheckBox();
 
-    NoteTextSettingPage noteTextSettingPage;
+    NoteSymbolSettingPage noteSymbolSettingPage;
 
 
     TabPage developerSettingPage;
@@ -93,9 +93,9 @@ class MainForm : Form
         asioDriverComboBox.SelectedIndex            = inRangeComboBox(setting.asioDriver, asioDriverComboBox);
         bufferNumericUpDown.Value                   = inRangeNumericUpDown(setting.buffer, bufferNumericUpDown);
 
-        for(int i = 0; i < setting.noteText.Length; i++)
+        for(int i = 0; i < setting.noteSymbol.Length; i++)
         {
-            noteTextSettingPage.colorNameCheckBox[i].Checked = setting.noteText[i];
+            noteSymbolSettingPage.colorNameCheckBox[i].Checked = setting.noteSymbol[i];
         }
 
         vsyncOffsetCompensationCheckBox.Checked     = setting.vsyncOffsetCompensation;
@@ -139,9 +139,9 @@ class MainForm : Form
         setting.asioDriver = asioDriverComboBox.SelectedIndex;
         setting.buffer = (int)bufferNumericUpDown.Value;
 
-        for (int i = 0; i < setting.noteText.Length; i++)
+        for (int i = 0; i < setting.noteSymbol.Length; i++)
         {
-            setting.noteText[i] = noteTextSettingPage.colorNameCheckBox[i].Checked;
+            setting.noteSymbol[i] = noteSymbolSettingPage.colorNameCheckBox[i].Checked;
         }
 
         setting.vsyncOffsetCompensation = vsyncOffsetCompensationCheckBox.Checked;
@@ -401,8 +401,8 @@ class MainForm : Form
 
     private void InitTabPageNoteTextSetting()
     {
-        noteTextSettingPage = new NoteTextSettingPage();
-        tabControl.TabPages.Add(noteTextSettingPage);
+        noteSymbolSettingPage = new NoteSymbolSettingPage();
+        tabControl.TabPages.Add(noteSymbolSettingPage);
 
     }
 

@@ -25,15 +25,15 @@ namespace nature_prhysm_launcher
             { "ASIO_DRIVER",                "ASIO_DRIVER" },
             { "BUFFER",                     "BUFFER" },
 
-            { "NOTE_TEXT_R","NOTE_TEXT_R"},
-            { "NOTE_TEXT_G","NOTE_TEXT_G"},
-            { "NOTE_TEXT_B","NOTE_TEXT_B"},
-            { "NOTE_TEXT_C","NOTE_TEXT_C"},
-            { "NOTE_TEXT_M","NOTE_TEXT_M"},
-            { "NOTE_TEXT_Y","NOTE_TEXT_Y"},
-            { "NOTE_TEXT_W","NOTE_TEXT_W"},
-            { "NOTE_TEXT_K","NOTE_TEXT_K"},
-            { "NOTE_TEXT_F","NOTE_TEXT_F"},
+            { "NOTE_SYMBOL_R","NOTE_SYMBOL_R"},
+            { "NOTE_SYMBOL_G","NOTE_SYMBOL_G"},
+            { "NOTE_SYMBOL_B","NOTE_SYMBOL_B"},
+            { "NOTE_SYMBOL_C","NOTE_SYMBOL_C"},
+            { "NOTE_SYMBOL_M","NOTE_SYMBOL_M"},
+            { "NOTE_SYMBOL_Y","NOTE_SYMBOL_Y"},
+            { "NOTE_SYMBOL_W","NOTE_SYMBOL_W"},
+            { "NOTE_SYMBOL_K","NOTE_SYMBOL_K"},
+            { "NOTE_SYMBOL_F","NOTE_SYMBOL_F"},
 
             { "VSYNC_OFFSET_COMPENSATION",  "VSYNC_OFFSET_COMPENSATION" },
             { "SHOW_STR_SHADOW",            "SHOW_STR_SHADOW" },
@@ -69,15 +69,15 @@ namespace nature_prhysm_launcher
                 string.Format("{0}:{1}",settingLabel["BUFFER"],setting.buffer),
                 string.Format("{0}:{1}",settingLabel["VSYNC_OFFSET_COMPENSATION"],getWriteText(setting.vsyncOffsetCompensation)),
 
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_R"],getWriteText(setting.noteText[0])),
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_G"],getWriteText(setting.noteText[1])),
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_B"],getWriteText(setting.noteText[2])),
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_C"],getWriteText(setting.noteText[3])),
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_M"],getWriteText(setting.noteText[4])),
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_Y"],getWriteText(setting.noteText[5])),
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_W"],getWriteText(setting.noteText[6])),
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_K"],getWriteText(setting.noteText[7])),
-                string.Format("{0}:{1}",settingLabel["NOTE_TEXT_F"],getWriteText(setting.noteText[8])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_R"],getWriteText(setting.noteSymbol[0])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_G"],getWriteText(setting.noteSymbol[1])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_B"],getWriteText(setting.noteSymbol[2])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_C"],getWriteText(setting.noteSymbol[3])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_M"],getWriteText(setting.noteSymbol[4])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_Y"],getWriteText(setting.noteSymbol[5])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_W"],getWriteText(setting.noteSymbol[6])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_K"],getWriteText(setting.noteSymbol[7])),
+                string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_F"],getWriteText(setting.noteSymbol[8])),
 
                 string.Format("{0}:{1}",settingLabel["SHOW_STR_SHADOW"],getWriteText(setting.showStrShadow)),
                 string.Format("{0}:{1}",settingLabel["USE_HIPERFORMANCE_TIMER"],getWriteText(setting.useHiperformanceTimer)),
@@ -167,15 +167,15 @@ namespace nature_prhysm_launcher
             if (v == settingLabel["ASIO_DRIVER"]) setting.asioDriver = value;
             if (v == settingLabel["BUFFER"]) setting.buffer = value;
 
-            if (v == settingLabel["NOTE_TEXT_R"]) setting.noteText[0] = intToBool(value);
-            if (v == settingLabel["NOTE_TEXT_G"]) setting.noteText[1] = intToBool(value);
-            if (v == settingLabel["NOTE_TEXT_B"]) setting.noteText[2] = intToBool(value);
-            if (v == settingLabel["NOTE_TEXT_C"]) setting.noteText[3] = intToBool(value);
-            if (v == settingLabel["NOTE_TEXT_M"]) setting.noteText[4] = intToBool(value);
-            if (v == settingLabel["NOTE_TEXT_Y"]) setting.noteText[5] = intToBool(value);
-            if (v == settingLabel["NOTE_TEXT_W"]) setting.noteText[6] = intToBool(value);
-            if (v == settingLabel["NOTE_TEXT_K"]) setting.noteText[7] = intToBool(value);
-            if (v == settingLabel["NOTE_TEXT_F"]) setting.noteText[8] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_R"]) setting.noteSymbol[0] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_G"]) setting.noteSymbol[1] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_B"]) setting.noteSymbol[2] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_C"]) setting.noteSymbol[3] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_M"]) setting.noteSymbol[4] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_Y"]) setting.noteSymbol[5] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_W"]) setting.noteSymbol[6] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_K"]) setting.noteSymbol[7] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_F"]) setting.noteSymbol[8] = intToBool(value);
 
             if (v == settingLabel["VSYNC_OFFSET_COMPENSATION"]) setting.vsyncOffsetCompensation = intToBool(value);
             if (v == settingLabel["SHOW_STR_SHADOW"]) setting.showStrShadow = intToBool(value);
@@ -228,7 +228,16 @@ namespace nature_prhysm_launcher
         public int asioDriver = -1;
         public int buffer = 256;
 
-        public bool[] noteText = { false, false, false, false, false, false, false, false, false };
+        public bool[] noteSymbol = { 
+            true, 
+            true, 
+            true, 
+            true, 
+            true, 
+            true, 
+            true, 
+            true, 
+            true };
 
         public bool vsyncOffsetCompensation = false;
         public bool showStrShadow = true;
