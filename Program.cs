@@ -54,6 +54,9 @@ class MainForm : Form
 
     NoteSymbolSettingPage noteSymbolSettingPage;
 
+    FontSettingPage fontSettingPage;
+
+
 
     TabPage developerSettingPage;
     CheckBox showDebugCheckBox = new CheckBox();
@@ -71,6 +74,7 @@ class MainForm : Form
         InitTabControl();
         InitTabPageBasicSetting();
         InitTabPageNoteTextSetting();
+        InitTabPageFontSetting();
         InitTabPageOtherSetting();
         InitTabPageDeveloperSetting();
         InitButton();
@@ -97,6 +101,8 @@ class MainForm : Form
         {
             noteSymbolSettingPage.colorNameCheckBox[i].Checked = setting.noteSymbol[i];
         }
+
+        fontSettingPage.fontComboBox.Text = setting.font;
 
         vsyncOffsetCompensationCheckBox.Checked     = setting.vsyncOffsetCompensation;
         showStrShadowCheckBox.Checked               = setting.showStrShadow;
@@ -143,6 +149,8 @@ class MainForm : Form
         {
             setting.noteSymbol[i] = noteSymbolSettingPage.colorNameCheckBox[i].Checked;
         }
+
+        setting.font = fontSettingPage.fontComboBox.Text;
 
         setting.vsyncOffsetCompensation = vsyncOffsetCompensationCheckBox.Checked;
         setting.showStrShadow = showStrShadowCheckBox.Checked;
@@ -398,7 +406,6 @@ class MainForm : Form
         }
     }
 
-
     private void InitTabPageNoteTextSetting()
     {
         noteSymbolSettingPage = new NoteSymbolSettingPage();
@@ -406,6 +413,12 @@ class MainForm : Form
 
     }
 
+    private void InitTabPageFontSetting()
+    {
+        fontSettingPage = new FontSettingPage();
+        tabControl.TabPages.Add(fontSettingPage);
+
+    }
 
     private void InitTabPageOtherSetting()
     {

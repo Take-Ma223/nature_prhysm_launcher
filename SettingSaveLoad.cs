@@ -35,6 +35,8 @@ namespace nature_prhysm_launcher
             { "NOTE_SYMBOL_K","NOTE_SYMBOL_K"},
             { "NOTE_SYMBOL_F","NOTE_SYMBOL_F"},
 
+            { "FONT","FONT"},
+
             { "VSYNC_OFFSET_COMPENSATION",  "VSYNC_OFFSET_COMPENSATION" },
             { "SHOW_STR_SHADOW",            "SHOW_STR_SHADOW" },
             { "USE_HIPERFORMANCE_TIMER",    "USE_HIPERFORMANCE_TIMER" },
@@ -78,6 +80,8 @@ namespace nature_prhysm_launcher
                 string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_W"],getWriteText(setting.noteSymbol[6])),
                 string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_K"],getWriteText(setting.noteSymbol[7])),
                 string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_F"],getWriteText(setting.noteSymbol[8])),
+
+                string.Format("{0}:{1}",settingLabel["FONT"],setting.font),
 
                 string.Format("{0}:{1}",settingLabel["SHOW_STR_SHADOW"],getWriteText(setting.showStrShadow)),
                 string.Format("{0}:{1}",settingLabel["USE_HIPERFORMANCE_TIMER"],getWriteText(setting.useHiperformanceTimer)),
@@ -143,7 +147,7 @@ namespace nature_prhysm_launcher
                 { 
                     try
                     {
-                        var value = int.Parse(split[1]);
+                        var value = split[1];
                         parseSetting(split[0], value);
                     }
                     catch (System.FormatException ex)
@@ -157,45 +161,52 @@ namespace nature_prhysm_launcher
             return setting;
         }
 
-        private void parseSetting(string v, int value)
+        private void parseSetting(string v, string value)
         {               
-            if (v == settingLabel["VSYNC"]) setting.vsync = intToBool(value);
-            if (v == settingLabel["FPS"]) setting.fps = value;
-            if (v == settingLabel["SHOW_FPS"]) setting.showFps = intToBool(value);
-            if (v == settingLabel["SOUND_OUTPUT_TYPE"]) setting.soundOutputType = value;
-            if (v == settingLabel["WASAPI_EXCLUSIVE"]) setting.wasapiExclusive = intToBool(value);
-            if (v == settingLabel["ASIO_DRIVER"]) setting.asioDriver = value;
-            if (v == settingLabel["BUFFER"]) setting.buffer = value;
+            if (v == settingLabel["VSYNC"]) setting.vsync = strToBool(value);
+            if (v == settingLabel["FPS"]) setting.fps = strToInt(value);
+            if (v == settingLabel["SHOW_FPS"]) setting.showFps = strToBool(value);
+            if (v == settingLabel["SOUND_OUTPUT_TYPE"]) setting.soundOutputType = strToInt(value);
+            if (v == settingLabel["WASAPI_EXCLUSIVE"]) setting.wasapiExclusive = strToBool(value);
+            if (v == settingLabel["ASIO_DRIVER"]) setting.asioDriver = strToInt(value);
+            if (v == settingLabel["BUFFER"]) setting.buffer = strToInt(value);
 
-            if (v == settingLabel["NOTE_SYMBOL_R"]) setting.noteSymbol[0] = intToBool(value);
-            if (v == settingLabel["NOTE_SYMBOL_G"]) setting.noteSymbol[1] = intToBool(value);
-            if (v == settingLabel["NOTE_SYMBOL_B"]) setting.noteSymbol[2] = intToBool(value);
-            if (v == settingLabel["NOTE_SYMBOL_C"]) setting.noteSymbol[3] = intToBool(value);
-            if (v == settingLabel["NOTE_SYMBOL_M"]) setting.noteSymbol[4] = intToBool(value);
-            if (v == settingLabel["NOTE_SYMBOL_Y"]) setting.noteSymbol[5] = intToBool(value);
-            if (v == settingLabel["NOTE_SYMBOL_W"]) setting.noteSymbol[6] = intToBool(value);
-            if (v == settingLabel["NOTE_SYMBOL_K"]) setting.noteSymbol[7] = intToBool(value);
-            if (v == settingLabel["NOTE_SYMBOL_F"]) setting.noteSymbol[8] = intToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_R"]) setting.noteSymbol[0] = strToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_G"]) setting.noteSymbol[1] = strToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_B"]) setting.noteSymbol[2] = strToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_C"]) setting.noteSymbol[3] = strToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_M"]) setting.noteSymbol[4] = strToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_Y"]) setting.noteSymbol[5] = strToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_W"]) setting.noteSymbol[6] = strToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_K"]) setting.noteSymbol[7] = strToBool(value);
+            if (v == settingLabel["NOTE_SYMBOL_F"]) setting.noteSymbol[8] = strToBool(value);
 
-            if (v == settingLabel["VSYNC_OFFSET_COMPENSATION"]) setting.vsyncOffsetCompensation = intToBool(value);
-            if (v == settingLabel["SHOW_STR_SHADOW"]) setting.showStrShadow = intToBool(value);
-            if (v == settingLabel["USE_HIPERFORMANCE_TIMER"]) setting.useHiperformanceTimer = intToBool(value);
-            if (v == settingLabel["SONG_SELECT_ROW_NUMBER"]) setting.songSelectRowNumber = value;
-            if (v == settingLabel["DISPLAY_TIMING_OFFSET"]) setting.displayTimingOffset = value;
-            if (v == settingLabel["FULLSCREEN"]) setting.fullScreen = intToBool(value);
-            if (v == settingLabel["EDITABLE"]) setting.editable = intToBool(value);
-            if (v == settingLabel["USE_AI_PREDICTED_DIFFICULTY"]) setting.useAiPredictedDifficulty = intToBool(value);
+            if (v == settingLabel["FONT"]) setting.font = value;
 
-            if (v == settingLabel["SHOW_DEBUG"]) setting.showDebug = intToBool(value);
-            if (v == settingLabel["LOCAL"]) setting.local = intToBool(value);
-            if (v == settingLabel["USE_PY"]) setting.usePy = intToBool(value);
-            if (v == settingLabel["COM_PORT"]) setting.comPort = value;
+
+            if (v == settingLabel["VSYNC_OFFSET_COMPENSATION"]) setting.vsyncOffsetCompensation = strToBool(value);
+            if (v == settingLabel["SHOW_STR_SHADOW"]) setting.showStrShadow = strToBool(value);
+            if (v == settingLabel["USE_HIPERFORMANCE_TIMER"]) setting.useHiperformanceTimer = strToBool(value);
+            if (v == settingLabel["SONG_SELECT_ROW_NUMBER"]) setting.songSelectRowNumber = strToInt(value);
+            if (v == settingLabel["DISPLAY_TIMING_OFFSET"]) setting.displayTimingOffset = strToInt(value);
+            if (v == settingLabel["FULLSCREEN"]) setting.fullScreen = strToBool(value);
+            if (v == settingLabel["EDITABLE"]) setting.editable = strToBool(value);
+            if (v == settingLabel["USE_AI_PREDICTED_DIFFICULTY"]) setting.useAiPredictedDifficulty = strToBool(value);
+
+            if (v == settingLabel["SHOW_DEBUG"]) setting.showDebug = strToBool(value);
+            if (v == settingLabel["LOCAL"]) setting.local = strToBool(value);
+            if (v == settingLabel["USE_PY"]) setting.usePy = strToBool(value);
+            if (v == settingLabel["COM_PORT"]) setting.comPort = strToInt(value);
 
         }
 
-        private bool intToBool(int value)
+        private int strToInt(string value)
         {
-            if (value == 0) return false;
+            return int.Parse(value);
+        }
+        private bool strToBool(string value)
+        {
+            if (strToInt(value) == 0) return false;
             else return true;
         }
 
@@ -238,6 +249,8 @@ namespace nature_prhysm_launcher
             true, 
             true, 
             true };
+
+        public string font = "メイリオ";
 
         public bool vsyncOffsetCompensation = false;
         public bool showStrShadow = true;
