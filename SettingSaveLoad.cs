@@ -35,7 +35,8 @@ namespace nature_prhysm_launcher
             { "NOTE_SYMBOL_K","NOTE_SYMBOL_K"},
             { "NOTE_SYMBOL_F","NOTE_SYMBOL_F"},
 
-            { "FONT","FONT"},
+            { "BASE_FONT","BASE_FONT"},
+            //{ "ALTERNATIVE_FONT","ALTERNATIVE_FONT"},
 
             { "VSYNC_OFFSET_COMPENSATION",  "VSYNC_OFFSET_COMPENSATION" },
             { "SHOW_STR_SHADOW",            "SHOW_STR_SHADOW" },
@@ -81,7 +82,8 @@ namespace nature_prhysm_launcher
                 string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_K"],getWriteText(setting.noteSymbol[7])),
                 string.Format("{0}:{1}",settingLabel["NOTE_SYMBOL_F"],getWriteText(setting.noteSymbol[8])),
 
-                string.Format("{0}:{1}",settingLabel["FONT"],setting.font),
+                string.Format("{0}:{1}",settingLabel["BASE_FONT"],setting.baseFont),
+                //string.Format("{0}:{1}",settingLabel["ALTERNATIVE_FONT"],setting.alternativeFont),
 
                 string.Format("{0}:{1}",settingLabel["SHOW_STR_SHADOW"],getWriteText(setting.showStrShadow)),
                 string.Format("{0}:{1}",settingLabel["USE_HIPERFORMANCE_TIMER"],getWriteText(setting.useHiperformanceTimer)),
@@ -181,7 +183,8 @@ namespace nature_prhysm_launcher
             if (v == settingLabel["NOTE_SYMBOL_K"]) setting.noteSymbol[7] = strToBool(value);
             if (v == settingLabel["NOTE_SYMBOL_F"]) setting.noteSymbol[8] = strToBool(value);
 
-            if (v == settingLabel["FONT"]) setting.font = value;
+            if (v == settingLabel["BASE_FONT"]) setting.baseFont = value;
+            //if (v == settingLabel["ALTERNATIVE_FONT"]) setting.alternativeFont = value;
 
 
             if (v == settingLabel["VSYNC_OFFSET_COMPENSATION"]) setting.vsyncOffsetCompensation = strToBool(value);
@@ -250,7 +253,8 @@ namespace nature_prhysm_launcher
             true, 
             true };
 
-        public string font = "メイリオ";
+        public string baseFont = "メイリオ";
+        //public string alternativeFont = "メイリオ";
 
         public bool vsyncOffsetCompensation = false;
         public bool showStrShadow = true;

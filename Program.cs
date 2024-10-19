@@ -102,7 +102,8 @@ class MainForm : Form
             noteSymbolSettingPage.colorNameCheckBox[i].Checked = setting.noteSymbol[i];
         }
 
-        fontSettingPage.fontComboBox.Text = setting.font;
+        fontSettingPage.baseFontComboBox.Text = setting.baseFont;
+        //fontSettingPage.alternativeFontComboBox.Text = setting.alternativeFont;
 
         vsyncOffsetCompensationCheckBox.Checked     = setting.vsyncOffsetCompensation;
         showStrShadowCheckBox.Checked               = setting.showStrShadow;
@@ -150,7 +151,8 @@ class MainForm : Form
             setting.noteSymbol[i] = noteSymbolSettingPage.colorNameCheckBox[i].Checked;
         }
 
-        setting.font = fontSettingPage.fontComboBox.Text;
+        setting.baseFont = fontSettingPage.baseFontComboBox.Text;
+        //setting.alternativeFont = fontSettingPage.alternativeFontComboBox.Text;
 
         setting.vsyncOffsetCompensation = vsyncOffsetCompensationCheckBox.Checked;
         setting.showStrShadow = showStrShadowCheckBox.Checked;
